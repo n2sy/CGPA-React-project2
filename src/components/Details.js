@@ -4,9 +4,11 @@
 
 import React from 'react';
 import '../assets/rotating-card.css';
+import { useNavigate } from 'react-router-dom';
 
 function Details(props) {
     console.log(props.selCand);
+    const navigate = useNavigate();
     if (props.selCand)
         return (
             <div className="card-container">
@@ -67,9 +69,7 @@ function Details(props) {
                         </div>
                         <div className="footer">
                             <div className="social-links text-center">
-                                <a href="https://creative-tim.com" className="facebook"><i className="fa fa-facebook fa-fw"></i></a>
-                                <a href="https://creative-tim.com" className="google"><i className="fa fa-google-plus fa-fw"></i></a>
-                                <a href="https://creative-tim.com" className="twitter"><i className="fa fa-twitter fa-fw"></i></a>
+                                <button onClick={() => { navigate(`/cv/${props.selCand._id}`) }} className='btn btn-primary'>Details</button>
                             </div>
                         </div>
                     </div>
