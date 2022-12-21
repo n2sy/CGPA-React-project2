@@ -8,23 +8,28 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Update from './components/Update';
 import Add from './pages/Add';
+import Login from './pages/Login';
+import { LoginContextProvider } from './store/login-context';
 
 function App() {
   return (
-    <CandidatContextProvider>
-      <BrowserRouter>
-        <Navbar></Navbar>
-        <Routes>
-          <Route path="" element={<Home></Home>}></Route>
-          <Route path="cv" element={<Cvtheque></Cvtheque>}></Route>
-          <Route path="cv/add" element={<Add></Add>}></Route>
-          <Route path="cv/:id" element={<Infos></Infos>}></Route>
-          <Route path="cv/:id/edit" element={<Update></Update>}></Route>
-        </Routes>
-      </BrowserRouter>
+    <LoginContextProvider>
+      <CandidatContextProvider>
+        <BrowserRouter>
+          <Navbar></Navbar>
+          <Routes>
+            <Route path="" element={<Home></Home>}></Route>
+            <Route path="cv" element={<Cvtheque></Cvtheque>}></Route>
+            <Route path="cv/add" element={<Add></Add>}></Route>
+            <Route path="cv/:id" element={<Infos></Infos>}></Route>
+            <Route path="cv/:id/edit" element={<Update></Update>}></Route>
+            <Route path="login" element={<Login></Login>}></Route>
+          </Routes>
+        </BrowserRouter>
+      </CandidatContextProvider >
+    </LoginContextProvider>
 
 
-    </CandidatContextProvider>
   );
 }
 
