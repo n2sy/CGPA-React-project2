@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [showSignin, setShowSignin] = useState(true);
+    const [showAlert, setShowAlert] = useState(false);
     const login = useRef();
     const mdp = useRef();
     const LogCtx = useContext(LoginContext);
@@ -20,12 +21,24 @@ function Login() {
                     email: login.current.value,
                     password: mdp.current.value
                 }
-            );
+            )
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    localStorage.setItem('mytoken', data['token']);
+                    LogCtx.verifyLogged();
+                    navigate("/cv");
+
+                })
+                .catch(err => {
+                    console.log(err);
+                    setShowAlert(true);
+                    login.current.value = '';
+                    mdp.current.value = '';
+
+                })
             // setShowSignin(false);
 
-            if (LogCtx.verifyLogged()) {
-                navigate("/cv");
-            }
 
 
 
@@ -43,6 +56,7 @@ function Login() {
 
     return (
         <div className='container'>
+            {showAlert && <div className='alert alert-danger'>Identifiants Invalides !</div>}
 
             <form onSubmit={submitHandler}>
                 <label>Login</label>

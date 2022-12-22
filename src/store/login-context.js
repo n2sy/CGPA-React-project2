@@ -17,7 +17,7 @@ export function LoginContextProvider(props) {
     const [isLogged, setIsLogged] = useState(false);
 
     function seConnecter(identifiants) {
-        fetch('http://localhost:3000/auth/login',
+        return fetch('http://localhost:3000/auth/login',
             {
                 method: 'POST',
                 body: JSON.stringify(identifiants),
@@ -25,17 +25,7 @@ export function LoginContextProvider(props) {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                localStorage.setItem('mytoken', data['token']);
-                setIsLogged(true);
 
-            })
-            .catch(err => {
-                console.log(err);
-
-            })
     }
 
     function inscription(identifiants) {
@@ -63,8 +53,9 @@ export function LoginContextProvider(props) {
         let token = localStorage.getItem('mytoken');
         console.log(token);
         if (token)
-            return true;
-        return false;
+            setIsLogged(true);
+        else
+            setIsLogged(false);
     }
 
 
