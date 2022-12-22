@@ -32,6 +32,10 @@ export function CandidatContextProvider(props) {
     function deleteCandidat(id) {
         return fetch(`http://localhost:3000/cv/persons/${id}`, {
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('mytoken')
+            }
         })
 
     }
@@ -42,8 +46,9 @@ export function CandidatContextProvider(props) {
             method: 'PUT',
             body: JSON.stringify(cand),
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('mytoken')
+            }
         })
     }
 
@@ -52,8 +57,9 @@ export function CandidatContextProvider(props) {
             method: 'POST',
             body: JSON.stringify(newCand),
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('mytoken')
+            }
         })
     }
 

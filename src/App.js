@@ -19,10 +19,13 @@ function App() {
           <Navbar></Navbar>
           <Routes>
             <Route path="" element={<Home></Home>}></Route>
-            <Route path="cv" element={<Cvtheque></Cvtheque>}></Route>
-            <Route path="cv/add" element={<Add></Add>}></Route>
-            <Route path="cv/:id" element={<Infos></Infos>}></Route>
-            <Route path="cv/:id/edit" element={<Update></Update>}></Route>
+            <Route path="cv" element={<Cvtheque></Cvtheque>}>
+
+              <Route path="add" element={<Add></Add>}></Route>
+              <Route path=":id" element={<Infos></Infos>}></Route>
+              <Route path=":id/edit" element={<Update></Update>}></Route>
+
+            </Route>
             <Route path="login" element={<Login></Login>}></Route>
           </Routes>
         </BrowserRouter>

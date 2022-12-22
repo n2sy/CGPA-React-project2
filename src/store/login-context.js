@@ -7,7 +7,8 @@ const LoginContext = createContext(
         isLogged: false,
         signin: () => { },
         signup: () => { },
-        signout: () => { }
+        signout: () => { },
+        verifyLogged: () => { }
     }
 )
 
@@ -27,10 +28,13 @@ export function LoginContextProvider(props) {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                localStorage.setItem('mytoken', data['token']);
                 setIsLogged(true);
+
             })
             .catch(err => {
                 console.log(err);
+
             })
     }
 
@@ -55,12 +59,23 @@ export function LoginContextProvider(props) {
 
     }
 
+    function verifyLogged() {
+        let token = localStorage.getItem('mytoken');
+        console.log(token);
+        if (token)
+            return true;
+        return false;
+    }
+
+
+
 
     const context = {
         isLogged: isLogged,
         signin: seConnecter,
         signup: inscription,
-        signout: () => { }
+        signout: () => { },
+        verifyLogged: verifyLogged
     }
     return <LoginContext.Provider value={context}>
         {props.children}

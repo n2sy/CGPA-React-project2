@@ -3,12 +3,14 @@
 
 import React, { useContext, useRef, useState } from 'react'
 import LoginContext from '../store/login-context';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [showSignin, setShowSignin] = useState(true);
     const login = useRef();
     const mdp = useRef();
-    const LogCtx = useContext(LoginContext)
+    const LogCtx = useContext(LoginContext);
+    const navigate = useNavigate();
 
     function submitHandler(e) {
         e.preventDefault();
@@ -18,9 +20,27 @@ function Login() {
                     email: login.current.value,
                     password: mdp.current.value
                 }
+            );
+            // setShowSignin(false);
+
+            if (LogCtx.verifyLogged()) {
+                navigate("/cv");
+            }
+
+
+
+        }
+        else {
+            LogCtx.signup(
+                {
+                    email: login.current.value,
+                    password: mdp.current.value
+                }
             )
         }
     }
+
+
     return (
         <div className='container'>
 
